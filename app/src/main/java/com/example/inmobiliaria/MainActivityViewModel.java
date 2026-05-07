@@ -13,6 +13,8 @@ import androidx.lifecycle.AndroidViewModel;
 import com.example.inmobiliaria.InicioActivity;
 import com.example.inmobiliaria.request.ApiClient;
 import com.example.inmobiliaria.request.ApiService;
+import com.example.inmobiliaria.request.Token;
+
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -32,12 +34,14 @@ public class MainActivityViewModel extends AndroidViewModel {
 
         llamada.enqueue(new Callback<String>() {
             @Override
-            public void onResponse(Call<String> call,
-                                   Response<String> response) {
+            public void onResponse(Call<String> call, Response<String> response) {
 
                 if(response.isSuccessful()){
 
                     String token = response.body();
+
+                    Token.GuardarToken(getApplication(), token); //Guardar el TOKEN
+
                     Toast.makeText(getApplication(),
                             "Login Correcto",
                             Toast.LENGTH_SHORT).show();

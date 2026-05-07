@@ -54,6 +54,8 @@ dependencies {
     implementation(libs.activity)
     implementation(libs.legacy.support.v4)
 
+    implementation(libs.lifecycle.viewmodel)
+
     testImplementation(libs.junit)
     androidTestImplementation(libs.ext.junit)
     androidTestImplementation(libs.espresso.core)
