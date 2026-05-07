@@ -1,14 +1,14 @@
-package com.example.inmobiliaria.ui.reflow;
+package com.example.inmobiliaria.ui.inmuebles;
 
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
-public class ReflowViewModel extends ViewModel {
+public class InmueblesViewModel extends ViewModel {
 
     private final MutableLiveData<String> mText;
 
-    public ReflowViewModel() {
+    public InmueblesViewModel() {
         mText = new MutableLiveData<>();
         mText.setValue("This is reflow fragment");
     }

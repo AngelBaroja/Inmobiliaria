@@ -52,6 +52,7 @@ dependencies {
     implementation("com.squareup.retrofit2:converter-gson:2.9.0")
     implementation("com.squareup.retrofit2:converter-scalars:2.9.0")
     implementation(libs.activity)
+    implementation(libs.legacy.support.v4)
 
     testImplementation(libs.junit)
     androidTestImplementation(libs.ext.junit)

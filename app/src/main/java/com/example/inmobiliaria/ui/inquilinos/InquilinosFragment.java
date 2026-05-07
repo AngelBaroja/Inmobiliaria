@@ -1,4 +1,4 @@
-package com.example.inmobiliaria.ui.slideshow;
+package com.example.inmobiliaria.ui.inquilinos;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -10,22 +10,22 @@ import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 
-import com.example.inmobiliaria.databinding.FragmentSlideshowBinding;
+import com.example.inmobiliaria.databinding.FragmentInquilinosBinding;
 
-public class SlideshowFragment extends Fragment {
+public class InquilinosFragment extends Fragment {
 
-    private FragmentSlideshowBinding binding;
+    private FragmentInquilinosBinding binding;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
-        SlideshowViewModel slideshowViewModel =
-                new ViewModelProvider(this).get(SlideshowViewModel.class);
+        InquilinosViewModel inquilinosViewModel =
+                new ViewModelProvider(this).get(InquilinosViewModel.class);
 
-        binding = FragmentSlideshowBinding.inflate(inflater, container, false);
+        binding = FragmentInquilinosBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
 
         final TextView textView = binding.textSlideshow;
-        slideshowViewModel.getText().observe(getViewLifecycleOwner(), textView::setText);
+        inquilinosViewModel.getText().observe(getViewLifecycleOwner(), textView::setText);
         return root;
     }
 

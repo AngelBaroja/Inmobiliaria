@@ -1,4 +1,4 @@
-package com.example.inmobiliaria.ui.reflow;
+package com.example.inmobiliaria.ui.contratos;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -10,22 +10,22 @@ import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 
-import com.example.inmobiliaria.databinding.FragmentReflowBinding;
+import com.example.inmobiliaria.databinding.FragmentContratosBinding;
 
-public class ReflowFragment extends Fragment {
+public class ContratosFragment extends Fragment {
 
-    private FragmentReflowBinding binding;
+    private FragmentContratosBinding binding;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
-        ReflowViewModel reflowViewModel =
-                new ViewModelProvider(this).get(ReflowViewModel.class);
+        ContratosViewModel contratosViewModel =
+                new ViewModelProvider(this).get(ContratosViewModel.class);
 
-        binding = FragmentReflowBinding.inflate(inflater, container, false);
+        binding = FragmentContratosBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
 
-        final TextView textView = binding.textReflow;
-        reflowViewModel.getText().observe(getViewLifecycleOwner(), textView::setText);
+        final TextView textView = binding.textSettings;
+        contratosViewModel.getText().observe(getViewLifecycleOwner(), textView::setText);
         return root;
     }
 

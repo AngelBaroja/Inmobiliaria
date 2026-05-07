@@ -1,4 +1,4 @@
-package com.example.inmobiliaria.ui.transform;
+package com.example.inmobiliaria.ui.perfil;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -16,7 +16,7 @@ import androidx.recyclerview.widget.ListAdapter;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.inmobiliaria.R;
-import com.example.inmobiliaria.databinding.FragmentTransformBinding;
+import com.example.inmobiliaria.databinding.FragmentPerfilBinding;
 import com.example.inmobiliaria.databinding.ItemTransformBinding;
 
 import java.util.Arrays;
@@ -28,22 +28,22 @@ import java.util.List;
  * the [RecyclerView] using LinearLayoutManager in a small screen
  * and shows items using GridLayoutManager in a large screen.
  */
-public class TransformFragment extends Fragment {
+public class PerfilFragment extends Fragment {
 
-    private FragmentTransformBinding binding;
+    private FragmentPerfilBinding binding;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
-        TransformViewModel transformViewModel =
-                new ViewModelProvider(this).get(TransformViewModel.class);
+        PerfilViewModel perfilViewModel =
+                new ViewModelProvider(this).get(PerfilViewModel.class);
 
-        binding = FragmentTransformBinding.inflate(inflater, container, false);
+        binding = FragmentPerfilBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
 
         RecyclerView recyclerView = binding.recyclerviewTransform;
         ListAdapter<String, TransformViewHolder> adapter = new TransformAdapter();
         recyclerView.setAdapter(adapter);
-        transformViewModel.getTexts().observe(getViewLifecycleOwner(), adapter::submitList);
+        perfilViewModel.getTexts().observe(getViewLifecycleOwner(), adapter::submitList);
         return root;
     }
 
