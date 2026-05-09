@@ -7,7 +7,7 @@ public class Token {
     public static void GuardarToken(Context context, String token) {
         SharedPreferences sp = context.getSharedPreferences("token.xml", Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = sp.edit();
-        editor.putString("token", token);
+        editor.putString("token", "Bearer "+ token);
         editor.apply();
     }
 

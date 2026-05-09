@@ -4,115 +4,84 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
-import android.widget.TextView;
 
 import androidx.annotation.NonNull;
-import androidx.core.content.res.ResourcesCompat;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
-import androidx.recyclerview.widget.DiffUtil;
-import androidx.recyclerview.widget.ListAdapter;
-import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.inmobiliaria.R;
 import com.example.inmobiliaria.databinding.FragmentPerfilBinding;
-import com.example.inmobiliaria.databinding.ItemTransformBinding;
+import com.example.inmobiliaria.modelo.Propietario;
 
-import java.util.Arrays;
-import java.util.List;
-
-/**
- * Fragment that demonstrates a responsive layout pattern where the format of the content
- * transforms depending on the size of the screen. Specifically this Fragment shows items in
- * the [RecyclerView] using LinearLayoutManager in a small screen
- * and shows items using GridLayoutManager in a large screen.
- */
 public class PerfilFragment extends Fragment {
 
     private FragmentPerfilBinding binding;
+    private PerfilViewModel vm;
 
-    public View onCreateView(@NonNull LayoutInflater inflater,
-                             ViewGroup container, Bundle savedInstanceState) {
-        PerfilViewModel perfilViewModel =
-                new ViewModelProvider(this).get(PerfilViewModel.class);
+    public View onCreateView(@NonNull LayoutInflater inflater,ViewGroup container,Bundle savedInstanceState) {
 
         binding = FragmentPerfilBinding.inflate(inflater, container, false);
-        View root = binding.getRoot();
 
-        RecyclerView recyclerView = binding.recyclerviewTransform;
-        ListAdapter<String, TransformViewHolder> adapter = new TransformAdapter();
-        recyclerView.setAdapter(adapter);
-        perfilViewModel.getTexts().observe(getViewLifecycleOwner(), adapter::submitList);
-        return root;
+        vm = new ViewModelProvider(this).get(PerfilViewModel.class);
+
+        vm.getPropietarioMutable().observe(getViewLifecycleOwner(), propietario -> {
+            binding.tvId.setText(propietario.getIdPropietario()+"");
+            binding.etNombre.setText(propietario.getNombre());
+            binding.etApellido.setText(propietario.getApellido());
+            binding.etDni.setText(propietario.getDni());
+            binding.etTelefono.setText(propietario.getTelefono());
+            binding.etEmail.setText(propietario.getEmail());
+        });
+        vm.CargarPerfil();
+        binding.btnGuardar.setOnClickListener( v -> {
+            vm.actualizarPerfil(binding.tvId.getText().toString(),
+                                binding.etNombre.getText().toString(),
+                                binding.etApellido.getText().toString(),
+                                binding.etDni.getText().toString(),
+                                binding.etTelefono.getText().toString(),
+                                binding.etEmail.getText().toString()
+            );
+        });
+        vm.getErrorNombreMutable().observe(getViewLifecycleOwner(), new Observer<String>() {
+            @Override
+            public void onChanged(String s) {
+                binding.tilNombre.setError(s);
+                binding.etNombre.findFocus();
+            }
+        });
+        vm.getErrorApellidoMutable().observe(getViewLifecycleOwner(), new Observer<String>() {
+            @Override
+            public void onChanged(String s) {
+                binding.tilApellido.setError(s);
+                binding.etApellido.findFocus();
+            }
+        });
+        vm.getErrorDNIMutable().observe(getViewLifecycleOwner(), new Observer<String>() {
+            @Override
+            public void onChanged(String s) {
+                binding.tilDNI.setError(s);
+                binding.etApellido.findFocus();
+            }
+        });
+        vm.getErrorTelefonoMutable().observe(getViewLifecycleOwner(), new Observer<String>() {
+            @Override
+            public void onChanged(String s) {
+                binding.tilTelefono.setError(s);
+            }
+        });
+        vm.getErrorEmailMutable().observe(getViewLifecycleOwner(), new Observer<String>() {
+            @Override
+            public void onChanged(String s) {
+                binding.tilEmail.setError(s);
+            }
+        });
+
+        return binding.getRoot();
     }
 
     @Override
     public void onDestroyView() {
         super.onDestroyView();
         binding = null;
-    }
-
-    private static class TransformAdapter extends ListAdapter<String, TransformViewHolder> {
-
-        private final List<Integer> drawables = Arrays.asList(
-                R.drawable.avatar_1,
-                R.drawable.avatar_2,
-                R.drawable.avatar_3,
-                R.drawable.avatar_4,
-                R.drawable.avatar_5,
-                R.drawable.avatar_6,
-                R.drawable.avatar_7,
-                R.drawable.avatar_8,
-                R.drawable.avatar_9,
-                R.drawable.avatar_10,
-                R.drawable.avatar_11,
-                R.drawable.avatar_12,
-                R.drawable.avatar_13,
-                R.drawable.avatar_14,
-                R.drawable.avatar_15,
-                R.drawable.avatar_16);
-
-        protected TransformAdapter() {
-            super(new DiffUtil.ItemCallback<String>() {
-                @Override
-                public boolean areItemsTheSame(@NonNull String oldItem, @NonNull String newItem) {
-                    return oldItem.equals(newItem);
-                }
-
-                @Override
-                public boolean areContentsTheSame(@NonNull String oldItem, @NonNull String newItem) {
-                    return oldItem.equals(newItem);
-                }
-            });
-        }
-
-        @NonNull
-        @Override
-        public TransformViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-            ItemTransformBinding binding = ItemTransformBinding.inflate(LayoutInflater.from(parent.getContext()));
-            return new TransformViewHolder(binding);
-        }
-
-        @Override
-        public void onBindViewHolder(@NonNull TransformViewHolder holder, int position) {
-            holder.textView.setText(getItem(position));
-            holder.imageView.setImageDrawable(
-                    ResourcesCompat.getDrawable(holder.imageView.getResources(),
-                            drawables.get(position),
-                            null));
-        }
-    }
-
-    private static class TransformViewHolder extends RecyclerView.ViewHolder {
-
-        private final ImageView imageView;
-        private final TextView textView;
-
-        public TransformViewHolder(ItemTransformBinding binding) {
-            super(binding.getRoot());
-            imageView = binding.imageViewItemTransform;
-            textView = binding.textViewItemTransform;
-        }
     }
 }

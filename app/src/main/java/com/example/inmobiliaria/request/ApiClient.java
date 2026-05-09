@@ -10,7 +10,7 @@ import retrofit2.converter.scalars.ScalarsConverterFactory;
 public class ApiClient {
 
     private static final String URL_BASE =
-            "https://capacitacion.alwaysdata.net/";
+            "https://capacitacion.alwaysdata.net/api/";
 
     private static Retrofit retrofit;
 
