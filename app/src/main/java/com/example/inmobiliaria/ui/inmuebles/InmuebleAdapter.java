@@ -61,7 +61,7 @@ public class InmuebleAdapter extends ArrayAdapter<Inmueble> {
 
             bundle.putInt("idInmueble", inmueble.getIdInmueble());
 
-            Navigation.findNavController(v).navigate(R.id.detalleContrato, bundle);
+            Navigation.findNavController(v).navigate(R.id.nav_detalle_Contrato, bundle);
         });
 
         return item;

@@ -40,9 +40,8 @@
         android:name="com.example.inmobiliaria.ui.contratos.ContratosFragment"
         android:label="@string/menu_contratos"
         tools:layout="@layout/fragment_contratos" >
-        <action
-            android:id="@+id/action_nav_contratos_to_detalleContrato"
-            app:destination="@id/detalleContrato" />
+
+
     </fragment>
 
     <fragment
@@ -58,24 +57,18 @@
     <fragment
         android:id="@+id/nav_pago"
         android:name="com.example.inmobiliaria.ui.pagos.PagoFragment"
-        android:label="fragment_pago"
-        tools:layout="@layout/fragment_pago2" >
-        <action
-            android:id="@+id/action_nav_pago_to_detalleContrato2"
-            app:destination="@id/detalleContrato" />
+        android:label="Pagos"
+        tools:layout="@layout/fragment_pago" >
+
     </fragment>
 
     <fragment
-        android:id="@+id/detalleContrato"
-        android:name="com.example.inmobiliaria.detalleContrato"
-        android:label="fragment_detalle_contrato2"
-        tools:layout="@layout/fragment_detalle_contrato2" >
-        <action
-            android:id="@+id/action_detalleContrato_to_nav_contratos"
-            app:destination="@id/nav_contratos" />
-        <action
-            android:id="@+id/action_detalleContrato_to_nav_pago"
-            app:destination="@id/nav_pago" />
+        android:id="@+id/nav_detalle_Contrato"
+        android:name="com.example.inmobiliaria.ui.contratos.DetalleContratoFragment"
+        android:label="Detalle Contrato"
+        tools:layout="@layout/fragment_detalle_contrato" >
+
+
     </fragment>
 
 

@@ -5,6 +5,7 @@ import android.content.SharedPreferences;
 
 import com.example.inmobiliaria.modelo.Contrato;
 import com.example.inmobiliaria.modelo.Inmueble;
+import com.example.inmobiliaria.modelo.Pago;
 import com.example.inmobiliaria.modelo.Propietario;
 
 import java.util.List;
@@ -55,11 +56,17 @@ public interface ApiService {
             @Header("Authorization") String token
     );
 
-    //Listar Contratos por Inmueble
+    // Contrato del Inmueble
     @GET("contratos/inmueble/{id}")
     Call<Contrato> obtenerContratoDelInmueble(
             @Header("Authorization") String token,
             @Path("id") int idInmueble
+    );
+    // Lista de los Pagos de un contrato
+    @GET("pagos/contrato/{id}")
+    Call<List<Pago>> obtenerPagosDelContrato(
+            @Header("Authorization") String token,
+            @Path("id") int idContrato
     );
 
 }

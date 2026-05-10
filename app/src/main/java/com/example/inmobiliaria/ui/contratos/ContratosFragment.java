@@ -22,13 +22,14 @@ import java.util.List;
 public class ContratosFragment extends Fragment {
 
     private FragmentContratosBinding binding;
+    private ContratosViewModel vm;
 
     public View onCreateView(@NonNull LayoutInflater inflater,ViewGroup container, Bundle savedInstanceState) {
-        ContratosViewModel contratosViewModel = new ViewModelProvider(this).get(ContratosViewModel.class);
+        vm = new ViewModelProvider(this).get(ContratosViewModel.class);
 
         binding = FragmentContratosBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
-        contratosViewModel.getListaContratoMutable().observe(getViewLifecycleOwner(), new Observer<List<Inmueble>>() {
+        vm.getListaContratoMutable().observe(getViewLifecycleOwner(), new Observer<List<Inmueble>>() {
             @Override
             public void onChanged(List<Inmueble> inmueble) {
                 InmuebleAdapter ia=new InmuebleAdapter(requireContext(), R.layout.item,inmueble,getLayoutInflater());
@@ -36,7 +37,7 @@ public class ContratosFragment extends Fragment {
             }
         });
 
-        contratosViewModel.ListaInmuebleConContrato();
+        vm.ListaInmuebleConContrato();
 
 
         return root;
