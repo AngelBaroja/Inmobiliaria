@@ -78,6 +78,7 @@ public class PerfilViewModel extends AndroidViewModel {
 
 
     public void CargarPerfil(){
+        // ----------- API --------
         String tokem= Token.ObtenerToken(getApplication());
         ApiService api = ApiClient.getApi().create(ApiService.class);
         Call<Propietario> llamada = api.getPropietario(tokem);

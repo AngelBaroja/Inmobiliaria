@@ -9,7 +9,9 @@ import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.navigation.Navigation;
 
+import com.example.inmobiliaria.R;
 import com.example.inmobiliaria.databinding.FragmentPerfilBinding;
 import com.example.inmobiliaria.modelo.Propietario;
 
@@ -74,6 +76,13 @@ public class PerfilFragment extends Fragment {
             public void onChanged(String s) {
                 binding.tilEmail.setError(s);
             }
+        });
+        binding.btnContrasena.setOnClickListener(v -> {
+            Bundle bundle = new Bundle();
+
+            //bundle.putString("clave", binding.tvContraseña.getText());
+
+            Navigation.findNavController(v).navigate(R.id.nav_contrasenia, bundle);
         });
 
         return binding.getRoot();

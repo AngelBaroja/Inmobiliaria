@@ -9,6 +9,7 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.lifecycle.AndroidViewModel;
+import androidx.lifecycle.MutableLiveData;
 
 import com.example.inmobiliaria.InicioActivity;
 import com.example.inmobiliaria.request.ApiClient;
@@ -21,9 +22,17 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 public class MainActivityViewModel extends AndroidViewModel {
+    private MutableLiveData<String> errorLogin;
 
     public MainActivityViewModel(@NonNull Application application) {
         super(application);
+    }
+
+    public MutableLiveData<String> getErrorLogin() {
+        if (errorLogin == null) {
+            errorLogin = new MutableLiveData<>();
+        }
+        return errorLogin;
     }
 
     public void login(String usuario, String clave){
@@ -52,9 +61,7 @@ public class MainActivityViewModel extends AndroidViewModel {
 
                 }else{
 
-                    Toast.makeText(getApplication(),
-                            "Usuario o Clave incorrectos",
-                            Toast.LENGTH_SHORT).show();
+                    errorLogin.setValue("Usuario o Clave Incorrectos");
                 }
             }
 

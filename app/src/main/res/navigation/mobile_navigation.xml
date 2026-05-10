@@ -8,9 +8,21 @@
     <fragment
         android:id="@+id/nav_perfil"
         android:name="com.example.inmobiliaria.ui.perfil.PerfilFragment"
-        android:label="@string/menu_perfil"
-        tools:layout="@layout/fragment_perfil" />
-
+        android:label="Perfil"
+        tools:layout="@layout/fragment_perfil" >
+        <action
+            android:id="@+id/action_nav_perfil_to_nav_contrasenia"
+            app:destination="@id/nav_contrasenia" />
+    </fragment>
+    <fragment
+        android:id="@+id/nav_contrasenia"
+        android:name="com.example.inmobiliaria.ui.perfil.ContraseniaFragment"
+        android:label="fragment_nav_contrasenia"
+        tools:layout="@layout/fragment_contrasenia" >
+        <action
+            android:id="@+id/action_nav_contrasenia_to_nav_perfil"
+            app:destination="@id/nav_perfil" />
+    </fragment>
     <fragment
         android:id="@+id/nav_inmuebles"
         android:name="com.example.inmobiliaria.ui.inmuebles.InmueblesFragment"
@@ -27,7 +39,12 @@
         android:id="@+id/nav_contratos"
         android:name="com.example.inmobiliaria.ui.contratos.ContratosFragment"
         android:label="@string/menu_contratos"
-        tools:layout="@layout/fragment_contratos" />
+        tools:layout="@layout/fragment_contratos" >
+        <action
+            android:id="@+id/action_nav_contratos_to_detalleContrato"
+            app:destination="@id/detalleContrato" />
+    </fragment>
+
     <fragment
         android:id="@+id/nav_inicio"
         android:name="com.example.inmobiliaria.ui.inicio.InicioFragment"
@@ -38,4 +55,28 @@
         android:name="com.example.inmobiliaria.ui.salir.SalirFragment"
         android:label="@string/menu_salir"
         tools:layout="@layout/fragment_salir" />
+    <fragment
+        android:id="@+id/nav_pago"
+        android:name="com.example.inmobiliaria.ui.pagos.PagoFragment"
+        android:label="fragment_pago"
+        tools:layout="@layout/fragment_pago2" >
+        <action
+            android:id="@+id/action_nav_pago_to_detalleContrato2"
+            app:destination="@id/detalleContrato" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/detalleContrato"
+        android:name="com.example.inmobiliaria.detalleContrato"
+        android:label="fragment_detalle_contrato2"
+        tools:layout="@layout/fragment_detalle_contrato2" >
+        <action
+            android:id="@+id/action_detalleContrato_to_nav_contratos"
+            app:destination="@id/nav_contratos" />
+        <action
+            android:id="@+id/action_detalleContrato_to_nav_pago"
+            app:destination="@id/nav_pago" />
+    </fragment>
+
+
 </navigation>
