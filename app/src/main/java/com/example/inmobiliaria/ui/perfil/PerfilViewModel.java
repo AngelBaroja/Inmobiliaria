@@ -27,6 +27,8 @@ public class PerfilViewModel extends AndroidViewModel {
     private MutableLiveData<String> errorNombreMutable, errorApellidoMutable,
                                     errorDNIMutable, errorTelefonoMutable,
                                     errorEmailMutable;
+    private MutableLiveData<String> editarBotonMutable, guardarBotonMutable;
+
 
 
     public PerfilViewModel(@NonNull Application application) {
@@ -38,6 +40,20 @@ public class PerfilViewModel extends AndroidViewModel {
             propietarioMutable=new MutableLiveData<>();
         }
         return propietarioMutable;
+    }
+
+    public MutableLiveData<String> getEditarBotonMutable() {
+        if (editarBotonMutable == null) {
+            editarBotonMutable = new MutableLiveData<>();
+        }
+        return editarBotonMutable;
+    }
+
+    public MutableLiveData<String> getGuardarBotonMutable() {
+        if (guardarBotonMutable == null) {
+            guardarBotonMutable = new MutableLiveData<>();
+        }
+        return guardarBotonMutable;
     }
 
     public MutableLiveData<String> getErrorNombreMutable() {
@@ -89,7 +105,7 @@ public class PerfilViewModel extends AndroidViewModel {
 
                 if(response.isSuccessful()){
                     Propietario p = response.body();
-                    propietarioMutable.setValue(p);
+                    propietarioMutable.postValue(p);
 
                 }else{
                     Toast.makeText(getApplication(),
@@ -106,6 +122,26 @@ public class PerfilViewModel extends AndroidViewModel {
                         Toast.LENGTH_SHORT).show();
             }
         });
+    }
+
+    public void EditarGuardar(String boton, String IdPropietario,
+                              String nombre,
+                              String apellido,
+                              String dni,
+                              String telefono,
+                              String email){
+        if (boton.equals("Editar Perfil")) {
+            editarBotonMutable.setValue("Guardar");
+        }else {
+            actualizarPerfil(IdPropietario,
+                             nombre,
+                             apellido,
+                             dni,
+                             telefono,
+                             email);
+
+
+        }
     }
 
     public void actualizarPerfil(String IdPropietario,
@@ -215,7 +251,8 @@ public class PerfilViewModel extends AndroidViewModel {
                     Toast.makeText(getApplication(),
                             "Perfil actualizado",
                             Toast.LENGTH_SHORT).show();
-                    propietarioMutable.setValue(propietario);
+                    propietarioMutable.postValue(propietario);
+                    guardarBotonMutable.postValue("Editar Perfil");
                 }else{
                     Toast.makeText(getApplication(),
                             "Error al actualizar",

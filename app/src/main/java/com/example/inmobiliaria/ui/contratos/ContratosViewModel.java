@@ -50,8 +50,7 @@ private ArrayList<Inmueble> listaInmueble;
             public void onResponse(Call<List<Inmueble>> call, Response<List<Inmueble>> response) {
 
                 if(response.isSuccessful() && response.body() != null){
-                    listaInmuebleMutable.setValue(response.body());
-
+                    listaInmuebleMutable.postValue(response.body());
                 }else{
                     Toast.makeText(getApplication(),
                             "No se encontraron inmuebles",

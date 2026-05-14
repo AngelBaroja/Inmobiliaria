@@ -25,7 +25,7 @@ public class PerfilFragment extends Fragment {
         binding = FragmentPerfilBinding.inflate(inflater, container, false);
 
         vm = new ViewModelProvider(this).get(PerfilViewModel.class);
-
+        vm.CargarPerfil();
         vm.getPropietarioMutable().observe(getViewLifecycleOwner(), propietario -> {
             binding.tvId.setText(propietario.getIdPropietario()+"");
             binding.etNombre.setText(propietario.getNombre());
@@ -34,16 +34,44 @@ public class PerfilFragment extends Fragment {
             binding.etTelefono.setText(propietario.getTelefono());
             binding.etEmail.setText(propietario.getEmail());
         });
-        vm.CargarPerfil();
+
+        //--------EDITAR O GUARDAR
         binding.btnGuardar.setOnClickListener( v -> {
-            vm.actualizarPerfil(binding.tvId.getText().toString(),
-                                binding.etNombre.getText().toString(),
-                                binding.etApellido.getText().toString(),
-                                binding.etDni.getText().toString(),
-                                binding.etTelefono.getText().toString(),
-                                binding.etEmail.getText().toString()
-            );
+            vm.EditarGuardar(binding.btnGuardar.getText().toString(),
+                                        binding.tvId.getText().toString(),
+                                        binding.etNombre.getText().toString(),
+                                        binding.etApellido.getText().toString(),
+                                        binding.etDni.getText().toString(),
+                                        binding.etTelefono.getText().toString(),
+                                        binding.etEmail.getText().toString()
+                    );
         });
+        //------- EDITAR ----------
+        vm.getEditarBotonMutable().observe(getViewLifecycleOwner(), new Observer<String>() {
+            @Override
+            public void onChanged(String s) {
+                binding.etNombre.setEnabled(true);
+                binding.etApellido.setEnabled(true);
+                binding.etDni.setEnabled(true);
+                binding.etTelefono.setEnabled(true);
+                binding.etEmail.setEnabled(true);
+                binding.btnGuardar.setText(s);
+            }
+        });
+
+        //------- GUARDAR ----------
+        vm.getGuardarBotonMutable().observe(getViewLifecycleOwner(), new Observer<String>() {
+            @Override
+            public void onChanged(String s) {
+                binding.etNombre.setEnabled(false);
+                binding.etApellido.setEnabled(false);
+                binding.etDni.setEnabled(false);
+                binding.etTelefono.setEnabled(false);
+                binding.etEmail.setEnabled(false);
+                binding.btnGuardar.setText(s);
+            }
+        });
+
         vm.getErrorNombreMutable().observe(getViewLifecycleOwner(), new Observer<String>() {
             @Override
             public void onChanged(String s) {
@@ -79,9 +107,6 @@ public class PerfilFragment extends Fragment {
         });
         binding.btnContrasena.setOnClickListener(v -> {
             Bundle bundle = new Bundle();
-
-            //bundle.putString("clave", binding.tvContraseña.getText());
-
             Navigation.findNavController(v).navigate(R.id.nav_contrasenia, bundle);
         });
 

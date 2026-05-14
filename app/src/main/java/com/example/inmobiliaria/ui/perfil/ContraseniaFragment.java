@@ -11,7 +11,7 @@ import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.example.inmobiliaria.databinding.FragmentContraseniaBinding;
-import com.example.inmobiliaria.databinding.FragmentNavContraseniaBinding;
+
 
 public class ContraseniaFragment extends Fragment {
 

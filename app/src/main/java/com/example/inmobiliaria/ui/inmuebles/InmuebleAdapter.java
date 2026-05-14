@@ -52,8 +52,8 @@ public class InmuebleAdapter extends ArrayAdapter<Inmueble> {
         //oto.setImageResource(inmueble.getImagen());
         direccion.setText(inmueble.getDireccion());
         tipo.setText(inmueble.getTipo());
-        uso.setText(inmueble.getUso());
-        ambientes.setText(inmueble.getAmbientes()+"");
+        uso.setText("Uso: "+inmueble.getUso());
+        ambientes.setText("Ambientes: "+inmueble.getAmbientes());
         valor.setText("$ "+inmueble.getValor());
         estado.setText(inmueble.isDisponible() ? "Disponible" : "No Disponible");
         item.setOnClickListener(v ->  {

@@ -64,10 +64,6 @@ public class ContraseniaFragmentViewModel extends AndroidViewModel {
 
         //------VALIDACION--------
         boolean hayError = false;
-        if (!actualContraseña.equals("DEEKQW")) {
-            actualContraseñaMutable.setValue("Clave Incorrecta");
-            hayError = true;
-        }
         if (nuevaContraseña.isEmpty() ) {
             nuevaContraseñaMutable.setValue("Ingrese una nueva clave");
             hayError=true;
@@ -106,6 +102,7 @@ public class ContraseniaFragmentViewModel extends AndroidViewModel {
                     Toast.makeText(getApplication(),
                             "Error al Actualizar Clave",
                             Toast.LENGTH_SHORT).show();
+                    actualContraseñaMutable.setValue("Clave Incorrecta");
                 }
             }
 
