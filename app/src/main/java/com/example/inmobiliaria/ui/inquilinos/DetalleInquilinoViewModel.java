@@ -5,60 +5,62 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.lifecycle.AndroidViewModel;
-import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
+import com.example.inmobiliaria.modelo.Contrato;
 import com.example.inmobiliaria.modelo.Inmueble;
 import com.example.inmobiliaria.modelo.Inquilino;
 import com.example.inmobiliaria.request.ApiClient;
 import com.example.inmobiliaria.request.ApiService;
 import com.example.inmobiliaria.request.Token;
 
-import java.util.List;
-
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class InquilinosViewModel extends AndroidViewModel {
+public class DetalleInquilinoViewModel extends AndroidViewModel {
 
-    private MutableLiveData<List<Inmueble>> listaMutable;
+    private MutableLiveData<Contrato> inquilinoM;
 
-    public InquilinosViewModel(@NonNull Application application) {
+    public DetalleInquilinoViewModel(@NonNull Application application) {
         super(application);
     }
 
-    public MutableLiveData<List<Inmueble>> getListaMutable() {
-        if (listaMutable == null) {
-            listaMutable = new MutableLiveData<>();
+    public MutableLiveData<Contrato> getInquilinoM(){
+        if(inquilinoM == null){
+            inquilinoM = new MutableLiveData<>();
         }
-        return listaMutable;
+        return inquilinoM;
     }
 
-    public void listarInquilinos(){
+    public void detalleInquilino(int idInmueble){
+        int id = idInmueble;
+
         String token = Token.ObtenerToken(getApplication());
         ApiService api = ApiClient.getApi().create(ApiService.class);
-        Call<List<Inmueble>> llamada = api.obtenerInmueblesConContratoVigente(token);
+        Call<Contrato> llamada = api.obtenerContratoDelInmueble(token, id);
 
-        llamada.enqueue(new Callback<List<Inmueble>>() {
+        llamada.enqueue(new Callback<Contrato>() {
             @Override
-            public void onResponse(Call<List<Inmueble>> call, Response<List<Inmueble>> response) {
-                if(response.isSuccessful() && response.body() != null){
-                    listaMutable.setValue(response.body());
-                } else {
+            public void onResponse(Call<Contrato> call, Response<Contrato> response) {
+                if(response.isSuccessful()){
+                    Contrato inquilino = response.body();
+                    inquilinoM.setValue(inquilino);
+                }else{
                     Toast.makeText(getApplication(),
-                            "No se encontraron inmuebles con inquilinos",
+                            "Error al buscar el contrato del inmueble",
                             Toast.LENGTH_SHORT).show();
                 }
             }
 
             @Override
-            public void onFailure(Call<List<Inmueble>> call, Throwable t) {
+            public void onFailure(Call<Contrato> call, Throwable t) {
                 Toast.makeText(getApplication(),
                         t.getMessage(),
                         Toast.LENGTH_LONG).show();
             }
         });
     }
+
 }

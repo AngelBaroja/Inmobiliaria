@@ -55,6 +55,10 @@ dependencies {
     implementation(libs.legacy.support.v4)
 
     implementation(libs.lifecycle.viewmodel)
+    implementation(libs.play.services.maps)
+    implementation(libs.fragment)
+
+    implementation("com.github.bumptech.glide:glide:4.16.0")
 
     testImplementation(libs.junit)
     androidTestImplementation(libs.ext.junit)

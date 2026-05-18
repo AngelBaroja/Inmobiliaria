@@ -13,10 +13,13 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.example.inmobiliaria.R;
+import com.example.inmobiliaria.databinding.FragmentInicioBinding;
+import com.google.android.gms.maps.SupportMapFragment;
 
-public class InicioFragment extends Fragment {
+public class InicioFragment extends Fragment{
 
-    private InicioViewModel mViewModel;
+    private InicioViewModel vm;
+    private FragmentInicioBinding binding;
 
     public static InicioFragment newInstance() {
         return new InicioFragment();
@@ -25,14 +28,24 @@ public class InicioFragment extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.fragment_inicio, container, false);
+
+        binding = FragmentInicioBinding.inflate(inflater, container, false);
+        View root = binding.getRoot();
+        vm = new ViewModelProvider(this).get(InicioViewModel.class);
+
+        vm.getMapaActual().observe(getViewLifecycleOwner(), mapaActual -> {
+            SupportMapFragment mapFragment = (SupportMapFragment) getChildFragmentManager()
+                    .findFragmentById(R.id.map);
+
+            if (mapFragment != null) {
+                mapFragment.getMapAsync(mapaActual);
+            }
+        });
+        vm.cargarMapa();
+
+
+        return root;
     }
 
-    @Override
-    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
-        super.onActivityCreated(savedInstanceState);
-        mViewModel = new ViewModelProvider(this).get(InicioViewModel.class);
-        // TODO: Use the ViewModel
-    }
 
 }

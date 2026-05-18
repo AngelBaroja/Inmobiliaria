@@ -1,5 +1,7 @@
 package com.example.inmobiliaria.modelo;
 
+import com.google.gson.annotations.SerializedName;
+
 import java.io.Serializable;
 
 public class Inmueble implements Serializable {
@@ -12,11 +14,8 @@ public class Inmueble implements Serializable {
         private String tipo;
         private int ambientes;
         private int superficie;
-        private double latitud;
-        private double longitud;
         private String imagen;
         private boolean disponible;
-        private boolean tieneContratoVigente;
 
         public Inmueble() {
         }
@@ -29,11 +28,8 @@ public class Inmueble implements Serializable {
                         String tipo,
                         int ambientes,
                         int superficie,
-                        double latitud,
-                        double longitud,
                         String imagen,
-                        boolean disponible,
-                        boolean tieneContratoVigente) {
+                        boolean disponible) {
 
             this.idInmueble = idInmueble;
             this.direccion = direccion;
@@ -43,11 +39,8 @@ public class Inmueble implements Serializable {
             this.tipo = tipo;
             this.ambientes = ambientes;
             this.superficie = superficie;
-            this.latitud = latitud;
-            this.longitud = longitud;
             this.imagen = imagen;
             this.disponible = disponible;
-            this.tieneContratoVigente = tieneContratoVigente;
         }
 
         public int getIdInmueble() {
@@ -114,22 +107,6 @@ public class Inmueble implements Serializable {
             this.superficie = superficie;
         }
 
-        public double getLatitud() {
-            return latitud;
-        }
-
-        public void setLatitud(double latitud) {
-            this.latitud = latitud;
-        }
-
-        public double getLongitud() {
-            return longitud;
-        }
-
-        public void setLongitud(double longitud) {
-            this.longitud = longitud;
-        }
-
         public String getImagen() {
             return imagen;
         }
@@ -144,14 +121,6 @@ public class Inmueble implements Serializable {
 
         public void setDisponible(boolean disponible) {
             this.disponible = disponible;
-        }
-
-        public boolean isTieneContratoVigente() {
-            return tieneContratoVigente;
-        }
-
-        public void setTieneContratoVigente(boolean tieneContratoVigente) {
-            this.tieneContratoVigente = tieneContratoVigente;
         }
 
 }

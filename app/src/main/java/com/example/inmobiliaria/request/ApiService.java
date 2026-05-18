@@ -49,6 +49,12 @@ public interface ApiService {
 
     );
 
+    //Listar todos los inmuebles
+    @GET("Inmuebles")
+    Call<List<Inmueble>> obtenerInmuebles(
+            @Header("Authorization") String token
+    );
+
 
     //Listar Inmuebles con Contaro
     @GET("Inmuebles/GetContratoVigente")
