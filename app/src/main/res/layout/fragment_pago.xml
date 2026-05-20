@@ -5,8 +5,8 @@
     android:layout_height="match_parent"
     tools:context=".ui.pagos.PagoFragment">
 
-    <ListView
-        android:id="@+id/lvListaPagos"
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/ListaPagos"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
 </FrameLayout>

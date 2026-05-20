@@ -6,6 +6,7 @@ import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.recyclerview.widget.LinearLayoutManager;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -16,6 +17,8 @@ import com.example.inmobiliaria.databinding.FragmentContratosBinding;
 import com.example.inmobiliaria.databinding.FragmentPagoBinding;
 import com.example.inmobiliaria.modelo.Inmueble;
 import com.example.inmobiliaria.modelo.Pago;
+import com.example.inmobiliaria.ui.adapters.InmuebleRecyclerAdapter;
+import com.example.inmobiliaria.ui.adapters.PagoRecyclerAdapter;
 import com.example.inmobiliaria.ui.contratos.ContratosViewModel;
 import com.example.inmobiliaria.ui.inmuebles.InmuebleAdapter;
 
@@ -35,8 +38,12 @@ public class PagoFragment extends Fragment {
         vm.getListaPagosMuteable().observe(getViewLifecycleOwner(), new Observer<List<Pago>>() {
             @Override
             public void onChanged(List<Pago> pagos) {
-                PagoAdapter pa=new PagoAdapter(requireContext(), R.layout.item_pago, pagos,getLayoutInflater());
-                binding.lvListaPagos.setAdapter(pa);
+                PagoRecyclerAdapter ia=new PagoRecyclerAdapter(requireContext(),
+                        pagos,
+                        getLayoutInflater(),
+                        R.id.nav_pago);
+                binding.ListaPagos.setAdapter(ia);
+                binding.ListaPagos.setLayoutManager(new LinearLayoutManager(requireContext()));
             }
         });
         Bundle bundle = getArguments();
