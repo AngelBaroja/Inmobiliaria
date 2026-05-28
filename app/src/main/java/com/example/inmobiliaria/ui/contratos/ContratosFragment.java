@@ -17,7 +17,6 @@ import com.example.inmobiliaria.databinding.FragmentContratosBinding;
 import com.example.inmobiliaria.modelo.Contrato;
 import com.example.inmobiliaria.modelo.Inmueble;
 import com.example.inmobiliaria.ui.adapters.InmuebleRecyclerAdapter;
-import com.example.inmobiliaria.ui.inmuebles.InmuebleAdapter;
 
 import java.util.List;
 

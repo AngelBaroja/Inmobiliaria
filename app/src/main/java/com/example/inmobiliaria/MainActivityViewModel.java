@@ -3,7 +3,11 @@ package com.example.inmobiliaria;
 import static android.content.ContentValues.TAG;
 
 import android.app.Application;
+import android.content.Context;
 import android.content.Intent;
+import android.hardware.Sensor;
+import android.hardware.SensorManager;
+import android.net.Uri;
 import android.util.Log;
 import android.widget.Toast;
 
@@ -23,9 +27,18 @@ import retrofit2.Response;
 
 public class MainActivityViewModel extends AndroidViewModel {
     private MutableLiveData<String> errorLogin;
+    private Context context;
+    private MutableLiveData<Boolean> mLlamada;
+    private SensorManager sensorManager;
+    private Sensor accelerometer;
+    private ShakeDetector shakeDetector;
+    private boolean sensorR = false;
 
     public MainActivityViewModel(@NonNull Application application) {
         super(application);
+        context = getApplication();
+        mLlamada = new MutableLiveData<>(false);
+        configurarShakeDetector();
     }
 
     public MutableLiveData<String> getErrorLogin() {
@@ -33,6 +46,10 @@ public class MainActivityViewModel extends AndroidViewModel {
             errorLogin = new MutableLiveData<>();
         }
         return errorLogin;
+    }
+
+    public MutableLiveData<Boolean> getmLlamada() {
+        return mLlamada;
     }
 
     public void login(String usuario, String clave){
@@ -73,5 +90,38 @@ public class MainActivityViewModel extends AndroidViewModel {
                         Toast.LENGTH_LONG).show();
             }
         });
+    }
+
+    private void configurarShakeDetector() {
+        sensorManager = (SensorManager) context.getSystemService(Context.SENSOR_SERVICE);
+        accelerometer = sensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
+
+        shakeDetector = new ShakeDetector();
+        shakeDetector.setOnShakeListener(new ShakeDetector.OnShakeListener() {
+            @Override
+            public void onShake() {
+                mLlamada.postValue(true);
+            }
+        });
+    }
+    public void abrirAppLlamadas() {
+        String numeroInmobiliaria = "2664256789";
+        Intent intentLlamada = new Intent(Intent.ACTION_DIAL);
+        intentLlamada.setData(Uri.parse("tel:" + numeroInmobiliaria));
+        intentLlamada.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        context.startActivity(intentLlamada);
+
+        mLlamada.postValue(false);
+    }
+
+    public void iniciarDeteccionShake() {
+        configurarShakeDetector();
+        sensorManager.registerListener(shakeDetector, accelerometer, SensorManager.SENSOR_DELAY_NORMAL);
+        sensorR = true;
+    }
+
+    public void detenerDeteccionShake() {
+        sensorManager.unregisterListener(shakeDetector);
+        sensorR = false;
     }
 }

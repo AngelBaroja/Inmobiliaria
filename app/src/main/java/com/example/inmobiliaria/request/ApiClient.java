@@ -11,6 +11,7 @@ public class ApiClient {
 
     private static final String URL_BASE =
             "https://capacitacion.alwaysdata.net/api/";
+    public static final String url = "https://capacitacion.alwaysdata.net";
 
     private static Retrofit retrofit;
 

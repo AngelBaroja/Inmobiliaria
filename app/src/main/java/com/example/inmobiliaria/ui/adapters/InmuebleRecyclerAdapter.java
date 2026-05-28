@@ -16,8 +16,12 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.bumptech.glide.Glide;
 import com.example.inmobiliaria.R;
 import com.example.inmobiliaria.modelo.Inmueble;
+import com.example.inmobiliaria.request.ApiClient;
+import com.example.inmobiliaria.request.ApiService;
 
+import java.text.NumberFormat;
 import java.util.List;
+import java.util.Locale;
 
 public class InmuebleRecyclerAdapter extends RecyclerView.Adapter<InmuebleRecyclerAdapter.ViewHolder> {
 
@@ -25,6 +29,7 @@ public class InmuebleRecyclerAdapter extends RecyclerView.Adapter<InmuebleRecycl
     private Context context;
     private LayoutInflater inflater;
     private int idAccionNavegacion;
+
 
     public InmuebleRecyclerAdapter(Context context, List<Inmueble> inmuebles, LayoutInflater inflater, int idAccionNavegacion) {
         this.context = context;
@@ -44,16 +49,26 @@ public class InmuebleRecyclerAdapter extends RecyclerView.Adapter<InmuebleRecycl
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         Inmueble inmueble = inmuebles.get(position);
 
+        NumberFormat nf = NumberFormat.getInstance(new Locale("es", "AR"));
+        String valorFormateado = nf.format(inmueble.getValor());
+
         holder.direccion.setText(inmueble.getDireccion());
         holder.tipo.setText(inmueble.getTipo());
         holder.uso.setText("Uso: " + inmueble.getUso());
         holder.ambientes.setText("Ambientes: " + inmueble.getAmbientes());
-        holder.valor.setText("$ " + inmueble.getValor());
+        holder.valor.setText("$ " + valorFormateado);
         holder.estado.setText(inmueble.isDisponible() ? "Disponible" : "No Disponible");
+
+
+        String ruta = inmueble.getImagen().replace("\\", "/");  // Algunas vienen con // entonces la reemplazo para GLIDE
+        if (!ruta.startsWith("/")) {
+            ruta = "/" + ruta;
+        }
+        String urlImagen = ApiClient.url + ruta;
         Glide.with(context)
-                .load("https://capacitacion.alwaysdata.net/" + inmueble.getImagen())
-                .placeholder(R.drawable.icon_plus)
-                .error(R.drawable.ic_camera_black_24dp)
+                .load(urlImagen)
+                .placeholder(R.drawable.ic_camera_black_24dp)
+                .error(R.drawable.ic_slideshow_black_24dp)
                 .into(holder.foto);
 
 

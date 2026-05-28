@@ -10,6 +10,7 @@ import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
 import com.example.inmobiliaria.R;
@@ -43,6 +44,10 @@ public class InmueblesFragment extends Fragment {
             }
         });
         vm.listarInmuebles();
+
+        binding.fbAgregarInmueble.setOnClickListener(v -> {
+            Navigation.findNavController(v).navigate(R.id.nav_agregar_inmueble);
+        });
         return root;
     }
 

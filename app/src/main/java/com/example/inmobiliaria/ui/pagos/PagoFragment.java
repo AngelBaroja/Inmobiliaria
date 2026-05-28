@@ -20,7 +20,6 @@ import com.example.inmobiliaria.modelo.Pago;
 import com.example.inmobiliaria.ui.adapters.InmuebleRecyclerAdapter;
 import com.example.inmobiliaria.ui.adapters.PagoRecyclerAdapter;
 import com.example.inmobiliaria.ui.contratos.ContratosViewModel;
-import com.example.inmobiliaria.ui.inmuebles.InmuebleAdapter;
 
 import java.util.List;
 

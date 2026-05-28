@@ -17,6 +17,8 @@ import com.example.inmobiliaria.request.ApiService;
 import com.example.inmobiliaria.request.Token;
 
 import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class DetalleInmuebleViewModel extends AndroidViewModel {
 
@@ -39,4 +41,35 @@ public class DetalleInmuebleViewModel extends AndroidViewModel {
             Toast.makeText(getApplication(),"No se encontro el inmueble",Toast.LENGTH_SHORT).show();
         }
     }
+
+    public void cambiarDisponibilidad(Inmueble inmueble){
+        if(inmueble != null){
+            inmueble.setDisponible(!inmueble.isDisponible());
+            String token = Token.ObtenerToken(getApplication());
+            ApiService api = ApiClient.getApi().create(ApiService.class);
+            Call<Inmueble> llamada = api.cambiarDisponibilidad(token, inmueble);
+
+            llamada.enqueue(new Callback<Inmueble>() {
+                @Override
+                public void onResponse(Call<Inmueble> call, Response<Inmueble> response) {
+                    if(response.isSuccessful() && response.body() != null){
+                        inmuebleM.setValue(response.body());
+                    } else {
+                        Toast.makeText(getApplication(),
+                                "No se pudo cambiar la disponibilidad",
+                                Toast.LENGTH_SHORT).show();
+                    }
+                }
+                @Override
+                public void onFailure(Call<Inmueble> call, Throwable t) {
+                    Toast.makeText(getApplication(),
+                            t.getMessage(),
+                            Toast.LENGTH_LONG).show();
+                }
+            });
+        }
+
+
+    }
+
 }

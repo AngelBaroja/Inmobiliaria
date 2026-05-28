@@ -4,53 +4,64 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#F8F9FB"
+    android:background="#F4F7F9"
+    android:fillViewport="true"
     tools:context=".ui.inquilinos.DetalleInquilinoFragment">
 
-    <LinearLayout
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
         android:padding="20dp">
 
         <com.google.android.material.card.MaterialCardView
-            android:layout_width="match_parent"
+            android:id="@+id/cardHeader"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginBottom="24dp"
             app:cardCornerRadius="32dp"
             app:cardElevation="0dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
             app:strokeWidth="0dp">
 
-            <LinearLayout
+            <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:gravity="center"
-                android:orientation="vertical"
                 android:padding="32dp"
-                android:background="@color/purple_500">
+                android:background="#263238">
 
                 <FrameLayout
+                    android:id="@+id/frameAvatar"
                     android:layout_width="100dp"
                     android:layout_height="100dp"
                     android:background="@drawable/rounded_image"
-                    android:backgroundTint="#40FFFFFF">
+                    android:backgroundTint="#20FFFFFF"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent">
 
                     <ImageView
-                        android:layout_width="60dp"
-                        android:layout_height="60dp"
+                        android:layout_width="50dp"
+                        android:layout_height="50dp"
                         android:layout_gravity="center"
+                        android:src="@android:drawable/ic_menu_myplaces"
                         app:tint="@color/white" />
                 </FrameLayout>
 
                 <TextView
+                    android:id="@+id/tvInquilinoLabel"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="16dp"
                     android:text="INQUILINO"
-                    android:textColor="#E1BEE7"
+                    android:textColor="#B0BEC5"
                     android:textSize="12sp"
                     android:letterSpacing="0.2"
-                    android:textStyle="bold" />
+                    android:textStyle="bold"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/frameAvatar" />
 
                 <TextView
                     android:id="@+id/tvInquilinoNombre"
@@ -60,168 +71,174 @@
                     android:text="Nombre y Apellido"
                     android:textColor="@color/white"
                     android:textSize="26sp"
-                    android:textStyle="bold" />
-            </LinearLayout>
+                    android:textStyle="bold"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/tvInquilinoLabel" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
         </com.google.android.material.card.MaterialCardView>
 
         <com.google.android.material.card.MaterialCardView
-            android:layout_width="match_parent"
+            android:id="@+id/cardInfo"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:layout_marginTop="24dp"
             app:cardCornerRadius="24dp"
             app:cardElevation="2dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/cardHeader"
             app:strokeColor="#E0E0E0"
             app:strokeWidth="1dp">
 
-            <LinearLayout
+            <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical"
                 android:padding="24dp">
 
                 <TextView
+                    android:id="@+id/tvTituloDetalle"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginBottom="20dp"
-                    android:text="Información Detallada"
-                    android:textColor="@color/purple_500"
+                    android:text="Información del Contacto"
+                    android:textColor="#455A64"
                     android:textSize="14sp"
                     android:textStyle="bold"
-                    android:letterSpacing="0.1" />
+                    android:letterSpacing="0.05"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
 
-                <LinearLayout
-                    android:layout_width="match_parent"
+                <ImageView
+                    android:id="@+id/ivIconDni"
+                    android:layout_width="32dp"
+                    android:layout_height="32dp"
+                    android:layout_marginTop="20dp"
+                    android:padding="7dp"
+                    android:background="#ECEFF1"
+                    android:src="@android:drawable/ic_menu_agenda"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/tvTituloDetalle"
+                    app:tint="#607D8B" />
+
+                <TextView
+                    android:id="@+id/tvLabelDni"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:gravity="center_vertical"
-                    android:orientation="horizontal"
-                    android:paddingVertical="12dp">
+                    android:layout_marginStart="16dp"
+                    android:text="DOCUMENTO (DNI)"
+                    android:textColor="#90A4AE"
+                    android:textSize="10sp"
+                    android:textStyle="bold"
+                    app:layout_constraintStart_toEndOf="@id/ivIconDni"
+                    app:layout_constraintTop_toTopOf="@id/ivIconDni" />
 
-                    <ImageView
-                        android:layout_width="32dp"
-                        android:layout_height="32dp"
-                        android:padding="6dp"
-                        android:background="#F3E5F5"
-                        app:tint="@color/purple_500" />
-
-                    <LinearLayout
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="16dp"
-                        android:layout_weight="1"
-                        android:orientation="vertical">
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="DNI"
-                            android:textColor="#9E9E9E"
-                            android:textSize="11sp"
-                            android:textStyle="bold" />
-
-                        <TextView
-                            android:id="@+id/tvInquilinoDni"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:textColor="#263238"
-                            android:textSize="17sp"
-                            android:textStyle="bold" />
-                    </LinearLayout>
-                </LinearLayout>
+                <TextView
+                    android:id="@+id/tvInquilinoDni"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Cargando..."
+                    android:textColor="@color/white"
+                    android:textSize="17sp"
+                    android:textStyle="bold"
+                    app:layout_constraintStart_toStartOf="@id/tvLabelDni"
+                    app:layout_constraintTop_toBottomOf="@id/tvLabelDni" />
 
                 <View
-                    android:layout_width="match_parent"
+                    android:id="@+id/divider1"
+                    android:layout_width="0dp"
                     android:layout_height="1dp"
-                    android:background="#F1F1F1" />
+                    android:layout_marginTop="16dp"
+                    android:background="#F1F1F1"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/tvInquilinoDni" />
 
-                <LinearLayout
-                    android:layout_width="match_parent"
+                <ImageView
+                    android:id="@+id/ivIconTelefono"
+                    android:layout_width="32dp"
+                    android:layout_height="32dp"
+                    android:layout_marginTop="16dp"
+                    android:padding="7dp"
+                    android:background="#E3F2FD"
+                    android:src="@android:drawable/ic_menu_call"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/divider1"
+                    app:tint="#1976D2" />
+
+                <TextView
+                    android:id="@+id/tvLabelTelefono"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:gravity="center_vertical"
-                    android:orientation="horizontal"
-                    android:paddingVertical="12dp">
+                    android:layout_marginStart="16dp"
+                    android:text="TELÉFONO MÓVIL"
+                    android:textColor="#90A4AE"
+                    android:textSize="10sp"
+                    android:textStyle="bold"
+                    app:layout_constraintStart_toEndOf="@id/ivIconTelefono"
+                    app:layout_constraintTop_toTopOf="@id/ivIconTelefono" />
 
-                    <ImageView
-                        android:layout_width="32dp"
-                        android:layout_height="32dp"
-                        android:padding="6dp"
-                        android:background="#E8F5E9"
-                        app:tint="#4CAF50" />
-
-                    <LinearLayout
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="16dp"
-                        android:layout_weight="1"
-                        android:orientation="vertical">
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="TELÉFONO"
-                            android:textColor="#9E9E9E"
-                            android:textSize="11sp"
-                            android:textStyle="bold" />
-
-                        <TextView
-                            android:id="@+id/tvInquilinoTelefono"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:textColor="#263238"
-                            android:textSize="17sp"
-                            android:textStyle="bold" />
-                    </LinearLayout>
-                </LinearLayout>
+                <TextView
+                    android:id="@+id/tvInquilinoTelefono"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Cargando..."
+                    android:textColor="@color/white"
+                    android:textSize="17sp"
+                    android:textStyle="bold"
+                    app:layout_constraintStart_toStartOf="@id/tvLabelTelefono"
+                    app:layout_constraintTop_toBottomOf="@id/tvLabelTelefono" />
 
                 <View
-                    android:layout_width="match_parent"
+                    android:id="@+id/divider2"
+                    android:layout_width="0dp"
                     android:layout_height="1dp"
-                    android:background="#F1F1F1" />
+                    android:layout_marginTop="16dp"
+                    android:background="#F1F1F1"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/tvInquilinoTelefono" />
 
-                <!-- Email -->
-                <LinearLayout
-                    android:layout_width="match_parent"
+                <ImageView
+                    android:id="@+id/ivIconEmail"
+                    android:layout_width="32dp"
+                    android:layout_height="32dp"
+                    android:layout_marginTop="16dp"
+                    android:padding="7dp"
+                    android:background="#E1F5FE"
+                    android:src="@android:drawable/ic_dialog_email"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/divider2"
+                    app:tint="#0288D1" />
+
+                <TextView
+                    android:id="@+id/tvLabelEmail"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:gravity="center_vertical"
-                    android:orientation="horizontal"
-                    android:paddingVertical="12dp">
+                    android:layout_marginStart="16dp"
+                    android:text="CORREO ELECTRÓNICO"
+                    android:textColor="#90A4AE"
+                    android:textSize="10sp"
+                    android:textStyle="bold"
+                    app:layout_constraintStart_toEndOf="@id/ivIconEmail"
+                    app:layout_constraintTop_toTopOf="@id/ivIconEmail" />
 
-                    <ImageView
-                        android:layout_width="32dp"
-                        android:layout_height="32dp"
-                        android:padding="6dp"
-                        android:background="#E3F2FD"
-                        app:tint="#2196F3" />
+                <TextView
+                    android:id="@+id/tvInquilinoEmail"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@color/white"
+                    android:textColor="#263238"
+                    android:textSize="17sp"
+                    android:textStyle="bold"
+                    app:layout_constraintStart_toStartOf="@id/tvLabelEmail"
+                    app:layout_constraintTop_toBottomOf="@id/tvLabelEmail" />
 
-                    <LinearLayout
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="16dp"
-                        android:layout_weight="1"
-                        android:orientation="vertical">
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="EMAIL"
-                            android:textColor="#9E9E9E"
-                            android:textSize="11sp"
-                            android:textStyle="bold" />
-
-                        <TextView
-                            android:id="@+id/tvInquilinoEmail"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:textColor="#263238"
-                            android:textSize="17sp"
-                            android:textStyle="bold" />
-                    </LinearLayout>
-                </LinearLayout>
-
-            </LinearLayout>
+            </androidx.constraintlayout.widget.ConstraintLayout>
         </com.google.android.material.card.MaterialCardView>
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/btnVolver"
-            android:layout_width="match_parent"
+            android:layout_width="0dp"
             android:layout_height="60dp"
             android:layout_marginTop="32dp"
             android:text="Regresar"
@@ -229,9 +246,11 @@
             android:textSize="16sp"
             android:textAllCaps="false"
             app:cornerRadius="18dp"
-            android:backgroundTint="@color/purple_500"
-            app:iconGravity="textStart"
+            android:backgroundTint="#1976D2"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/cardInfo"
             style="@style/Widget.MaterialComponents.Button" />
 
-    </LinearLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
 </ScrollView>

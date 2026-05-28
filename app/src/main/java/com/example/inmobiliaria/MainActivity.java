@@ -31,6 +31,12 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+        vm.getmLlamada().observe(this, v -> {
+            if (v != null && v){
+                vm.abrirAppLlamadas();
+            }
+        });
+
         binding.bIngresar.setOnClickListener(v -> {
 
             String usuario = binding.etUsuario.getText().toString();
@@ -80,5 +86,19 @@ public class MainActivity extends AppCompatActivity {
 
         binding.etClave.addTextChangedListener(watcher);
         binding.etUsuario.addTextChangedListener(watcher);
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        // Iniciar deteccion cuando la actividad está visible
+        vm.iniciarDeteccionShake();
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        // Detener deteccion cuando la actividad no está visible
+        vm.detenerDeteccionShake();
     }
 }
