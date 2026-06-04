@@ -46,15 +46,6 @@ public class DetalleInmuebleFragment extends Fragment {
             binding.tvDetalleTipo.setText(inmueble.getTipo());
             binding.tvDetalleUso.setText(inmueble.getUso());
 
-            if (inmueble.isDisponible()) {
-                binding.tvDetalleEstado.setText("Disponible");
-                binding.tvDetalleEstado.setBackgroundTintList(android.content.res.ColorStateList.valueOf(android.graphics.Color.parseColor("#4CAF50")));
-                binding.tvDetalleContrato.setText("Este inmueble se encuentra listo para alquilar.");
-            } else {
-                binding.tvDetalleEstado.setText("No Disponible");
-                binding.tvDetalleEstado.setBackgroundTintList(android.content.res.ColorStateList.valueOf(android.graphics.Color.parseColor("#F44336")));
-                binding.tvDetalleContrato.setText("Este inmueble no está disponible por el momento.");
-            }
             String rutaLimpia = inmueble.getImagen().replace("\\", "/");
             if(!rutaLimpia.startsWith("/")) rutaLimpia = "/" + rutaLimpia;
 
@@ -65,19 +56,20 @@ public class DetalleInmuebleFragment extends Fragment {
                     .into(binding.ivDetalleImagen);
         });
 
-        Bundle bundle = getArguments();
-        if(bundle != null){
-            Inmueble inmueble = (Inmueble) bundle.getSerializable("inmueble");
-            vm.cargarInmueble(inmueble);
-        } else {
-            Navigation.findNavController(root).navigateUp();
-        }
+        vm.getEstadoM().observe(getViewLifecycleOwner(), estado -> binding.tvDetalleEstado.setText(estado));
+
+        vm.getColorM().observe(getViewLifecycleOwner(), color -> binding.tvDetalleEstado.setBackgroundTintList(color));
+
+        vm.getMensajeContratoM().observe(getViewLifecycleOwner(), mensaje -> binding.tvDetalleContrato.setText(mensaje));
+
+        vm.getNavegarM().observe(getViewLifecycleOwner(), debeNavegar -> {
+            if(debeNavegar) Navigation.findNavController(requireView()).navigateUp();
+        });
+
+        vm.cargarInmueble(getArguments());
 
         binding.btnEditarInmueble.setOnClickListener(v -> {
-            Inmueble actual = vm.getInmuebleM().getValue();
-            if(actual != null){
-                vm.cambiarDisponibilidad(actual);
-            }
+            vm.cambiarDisponibilidad();
         });
 
         return root;

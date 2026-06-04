@@ -51,7 +51,7 @@ public class DetalleContratoFragment extends Fragment {
 
 
                 // -------- INQUILINO --------
-                /*
+
                 binding.tvNombreInquilino.setText(
                         contrato.getInquilino().getNombre() + " " +
                                 contrato.getInquilino().getApellido());
@@ -64,7 +64,7 @@ public class DetalleContratoFragment extends Fragment {
 
                 binding.tvEmail.setText(
                         "Email: " + contrato.getInquilino().getEmail());
-                 */
+
 
                 // -------- INMUEBLE --------
 
