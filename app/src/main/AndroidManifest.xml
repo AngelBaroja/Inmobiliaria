@@ -16,7 +16,7 @@
         android:theme="@style/Theme.Inmobiliaria">
         <meta-data
             android:name="com.google.android.geo.API_KEY"
-            android:value="AIzaSyCa0vb3gjytKEUfwgUMK4EtGJCJk9SGxbA"
+            android:value="AIzaSyDea2gaYyo20IQ2CERiu2z3i3HaF8KZcNo"
             />
         <activity
             android:name=".InicioActivity"

@@ -28,7 +28,7 @@ import retrofit2.Response;
 public class MainActivityViewModel extends AndroidViewModel {
     private MutableLiveData<String> errorLogin;
     private Context context;
-    private MutableLiveData<Boolean> mLlamada;
+    private MutableLiveData<String> mLlamada;
     private SensorManager sensorManager;
     private Sensor accelerometer;
     private ShakeDetector shakeDetector;
@@ -37,7 +37,6 @@ public class MainActivityViewModel extends AndroidViewModel {
     public MainActivityViewModel(@NonNull Application application) {
         super(application);
         context = getApplication();
-        mLlamada = new MutableLiveData<>(false);
         configurarShakeDetector();
     }
 
@@ -48,7 +47,11 @@ public class MainActivityViewModel extends AndroidViewModel {
         return errorLogin;
     }
 
-    public MutableLiveData<Boolean> getmLlamada() {
+    public MutableLiveData<String> getmLlamada() {
+
+        if (mLlamada == null) {
+            mLlamada = new MutableLiveData<>();
+        }
         return mLlamada;
     }
 
@@ -100,7 +103,7 @@ public class MainActivityViewModel extends AndroidViewModel {
         shakeDetector.setOnShakeListener(new ShakeDetector.OnShakeListener() {
             @Override
             public void onShake() {
-                mLlamada.postValue(true);
+                mLlamada.postValue("LLAMAR");
             }
         });
     }
@@ -111,7 +114,7 @@ public class MainActivityViewModel extends AndroidViewModel {
         intentLlamada.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         context.startActivity(intentLlamada);
 
-        mLlamada.postValue(false);
+        //mLlamada.postValue(false);
     }
 
     public void iniciarDeteccionShake() {

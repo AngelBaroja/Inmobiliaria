@@ -21,7 +21,6 @@ public class ApiClient {
 
             retrofit = new Retrofit.Builder()
                     .baseUrl(URL_BASE)
-                    //.addConverterFactory(ScalarsConverterFactory.create())
                     .addConverterFactory(GsonConverterFactory.create(gson))
                     .build();
         }

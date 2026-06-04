@@ -55,13 +55,7 @@ public class ContraseniaFragment extends Fragment {
         });
 
         binding.btnActualizarClave.setOnClickListener(v -> {
-            /*Bundle bundle = getArguments();
 
-                if(bundle != null){
-
-                    String clave = bundle.getString("clave");
-
-                }*/
             String actual = binding.etClaveActual.getText().toString();
             String nueva = binding.etClaveNueva.getText().toString();
             String repetir = binding.etRepetirClave.getText().toString();

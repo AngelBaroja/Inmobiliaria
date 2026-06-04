@@ -22,7 +22,7 @@ public class MainActivity extends AppCompatActivity {
         ActivityMainBinding binding = ActivityMainBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
-        //vm = new ViewModelProvider(this).get(MainActivityViewModel.class);
+
         vm= ViewModelProvider.AndroidViewModelFactory.getInstance(getApplication()).create(MainActivityViewModel.class);
         vm.getErrorLogin().observe(this, new Observer<String>() {
             @Override
@@ -32,10 +32,9 @@ public class MainActivity extends AppCompatActivity {
         });
 
         vm.getmLlamada().observe(this, v -> {
-            if (v != null && v){
-                vm.abrirAppLlamadas();
-            }
+            vm.abrirAppLlamadas();
         });
+
 
         binding.bIngresar.setOnClickListener(v -> {
 
